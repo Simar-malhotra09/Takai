@@ -1,5 +1,5 @@
 C++ implementation(s) to count word/phrase frequencies from a huge > 50GB text file(s). The actual task is basic, but I’m using it as an excuse to dive into low-level C++ stuff- memory usage, performance, file I/O, etc. With datasets this big, even small inefficiencies add up.
 
 ## Bottlenecks:
-1. Use ifstream to parse file line by line, too slow to even work with a ~25GB file.
+1. Uses ifstream to parse file line by line, too slow to even work with a ~25GB file.
 
