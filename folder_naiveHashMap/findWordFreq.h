@@ -11,7 +11,7 @@ namespace naiveHashMap {
 
     public:
       FindWordFreq(const std::string& path);
-      void processFile();
+      void processFile(const size_t limitBytes);
       int getFileCount()const;
       int getWordFreq(const std::string& word) const;
 
