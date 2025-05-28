@@ -1,4 +1,3 @@
-
-## Bottlenecks:
-1. Uses ifstream to parse file line by line, too slow to even work with a ~25GB file.
+As of 2025/05/28: 
+![Alt Text](assets/benchmark.png)
 
