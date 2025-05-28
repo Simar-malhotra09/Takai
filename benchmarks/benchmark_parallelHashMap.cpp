@@ -13,9 +13,23 @@ static void BM_ProcessFile(benchmark::State& state) {
   }
 }
 
+// 4 threads
 BENCHMARK(BM_ProcessFile)->Args({3 * GB_IN_BYTES, 4})->Unit(benchmark::kSecond);
 BENCHMARK(BM_ProcessFile)->Args({5 * GB_IN_BYTES, 4})->Unit(benchmark::kSecond);
 BENCHMARK(BM_ProcessFile)->Args({10 * GB_IN_BYTES, 4})->Unit(benchmark::kSecond);
 BENCHMARK(BM_ProcessFile)->Args({20 * GB_IN_BYTES, 4})->Unit(benchmark::kSecond);
+
+// 8 threads
+BENCHMARK(BM_ProcessFile)->Args({3 * GB_IN_BYTES, 8})->Unit(benchmark::kSecond);
+BENCHMARK(BM_ProcessFile)->Args({5 * GB_IN_BYTES, 8})->Unit(benchmark::kSecond);
+BENCHMARK(BM_ProcessFile)->Args({10 * GB_IN_BYTES, 8})->Unit(benchmark::kSecond);
+BENCHMARK(BM_ProcessFile)->Args({20 * GB_IN_BYTES, 8})->Unit(benchmark::kSecond);
+
+
+// 12 threads
+BENCHMARK(BM_ProcessFile)->Args({3 * GB_IN_BYTES, 12})->Unit(benchmark::kSecond);
+BENCHMARK(BM_ProcessFile)->Args({5 * GB_IN_BYTES, 12})->Unit(benchmark::kSecond);
+BENCHMARK(BM_ProcessFile)->Args({10 * GB_IN_BYTES, 12})->Unit(benchmark::kSecond);
+BENCHMARK(BM_ProcessFile)->Args({20 * GB_IN_BYTES, 12})->Unit(benchmark::kSecond);
 
 BENCHMARK_MAIN();
