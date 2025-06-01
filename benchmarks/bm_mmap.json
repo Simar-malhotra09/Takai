@@ -1,0 +1,92 @@
+{
+  "context": {
+    "date": "2025-06-01T02:54:31-04:00",
+    "host_name": "Simars-MacBook-Pro.local",
+    "executable": "./benchmark_test",
+    "num_cpus": 8,
+    "mhz_per_cpu": 24,
+    "cpu_scaling_enabled": false,
+    "caches": [
+      {
+        "type": "Data",
+        "level": 1,
+        "size": 65536,
+        "num_sharing": 0
+      },
+      {
+        "type": "Instruction",
+        "level": 1,
+        "size": 131072,
+        "num_sharing": 0
+      },
+      {
+        "type": "Unified",
+        "level": 2,
+        "size": 4194304,
+        "num_sharing": 1
+      }
+    ],
+    "load_avg": [2.30176,2.2168,2.53223],
+    "library_version": "v1.9.4-4-gce80955d",
+    "library_build_type": "release",
+    "json_schema_version": 1
+  },
+  "benchmarks": [
+    {
+      "name": "BM_ReadWithMMap/3221225472",
+      "family_index": 0,
+      "per_family_instance_index": 0,
+      "run_name": "BM_ReadWithMMap/3221225472",
+      "run_type": "iteration",
+      "repetitions": 1,
+      "repetition_index": 0,
+      "threads": 1,
+      "iterations": 1,
+      "real_time": 7.4683832909213379e+00,
+      "cpu_time": 3.2223290000000002e+00,
+      "time_unit": "s"
+    },
+    {
+      "name": "BM_ReadWithMMap/5368709120",
+      "family_index": 0,
+      "per_family_instance_index": 1,
+      "run_name": "BM_ReadWithMMap/5368709120",
+      "run_type": "iteration",
+      "repetitions": 1,
+      "repetition_index": 0,
+      "threads": 1,
+      "iterations": 1,
+      "real_time": 8.1849398330086842e+00,
+      "cpu_time": 5.0294099999999986e+00,
+      "time_unit": "s"
+    },
+    {
+      "name": "BM_ReadWithMMap/10737418240",
+      "family_index": 0,
+      "per_family_instance_index": 2,
+      "run_name": "BM_ReadWithMMap/10737418240",
+      "run_type": "iteration",
+      "repetitions": 1,
+      "repetition_index": 0,
+      "threads": 1,
+      "iterations": 1,
+      "real_time": 1.8468596208025701e+01,
+      "cpu_time": 1.0315945000000001e+01,
+      "time_unit": "s"
+    },
+    {
+      "name": "BM_ReadWithMMap/21474836480",
+      "family_index": 0,
+      "per_family_instance_index": 3,
+      "run_name": "BM_ReadWithMMap/21474836480",
+      "run_type": "iteration",
+      "repetitions": 1,
+      "repetition_index": 0,
+      "threads": 1,
+      "iterations": 1,
+      "real_time": 5.3733914542011917e+01,
+      "cpu_time": 2.2216054000000000e+01,
+      "time_unit": "s"
+    }
+  ]
+}
