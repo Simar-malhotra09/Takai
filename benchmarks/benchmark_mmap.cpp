@@ -8,56 +8,93 @@
 
 #define GB_IN_BYTES (1024L * 1024 * 1024)
 
-void readFile(const size_t limitBytes, const std::string& filePath) {
-    const char* fPath = filePath.c_str();
-    int fd = open(fPath, O_RDONLY);
-    if (fd == -1) {
-        std::cerr << "Failed to open file: " << strerror(errno) << std::endl;
-        return;
-    }
+int readFileAndCount(const size_t limitBytes, const std::string& filePath) {
+  
+  const char* fPath = filePath.c_str();
+  int fd = open(fPath, O_RDONLY);
+  if (fd == -1) {
+      std::cerr << "Failed to open file: " << strerror(errno) << std::endl;
+      return -1;
+  }
 
-    struct stat sb;
-    if (fstat(fd, &sb) == -1) {
-        std::cerr << "Failed to stat file: " << strerror(errno) << std::endl;
-        close(fd);
-        return;
-    }
+  // http://codewiki.wikidot.com/c:struct-stat
+  struct stat fileInfo;
+  if (fstat(fd, &fileInfo) == -1) {
+      std::cerr << "Failed to stat file: " << strerror(errno) << std::endl;
+      close(fd);
+      return -1;
+  }
 
-    char* data = static_cast<char*>(mmap(nullptr, sb.st_size, PROT_READ, MAP_PRIVATE, fd, 0));
-    if (data == MAP_FAILED) {
-        std::cerr << "mmap failed: " << strerror(errno) << std::endl;
-        close(fd);
-        return;
-    }
+  // 
+  // reference for mmap function used:https: www.man7.org/linux/man-pages/man2/mmap.2.html
+  //
+  // void *mmap(void addr[.length], size_t length, int prot, int flags,
+  //            int fd, off_t offset);
+  //
+  // Then we static cast a generic pointer void* returned by mmap, into a pointer char*
+  // to get access to raw byte level.
+  //
+  char* data = static_cast<char*>(mmap(nullptr, fileInfo.st_size, PROT_READ, MAP_PRIVATE, fd, 0));
+  if (data == MAP_FAILED) {
+      std::cerr << "mmap failed: " << strerror(errno) << std::endl;
+      close(fd);
+      return -1;
+  }
 
-    size_t cntr = 0;
-    while (cntr < sb.st_size && cntr < limitBytes) {
-        int lineLen = 0;
-        char* line = data;
 
-        while (*data != '\n' && cntr < sb.st_size && cntr < limitBytes) {
-            data++;
-            cntr++;
-            lineLen++;
-        }
+  size_t cntr = 0;
+  size_t wordCount = 0;
 
-        benchmark::DoNotOptimize(line);
-        if (cntr < sb.st_size && cntr < limitBytes) {
-            data++;
-            cntr++;
-        }
-    }
+  while (cntr < fileInfo.st_size && cntr < limitBytes) {
+      int lineLen = 0;
+      char* line = data;
 
-    munmap(data, sb.st_size);
-    close(fd);
+      // Capture start of line
+      while (*data != '\n' && cntr < fileInfo.st_size && cntr < limitBytes) {
+          data++;
+          cntr++;
+          lineLen++;
+      }
+
+      // Count words in this line
+      bool inWord = false;
+      for (int i = 0; i < lineLen; ++i) {
+          char c = line[i];
+          if (std::isspace(static_cast<unsigned char>(c))) {
+              inWord = false;
+          } else if (!inWord) {
+              inWord = true;
+              ++wordCount;
+          }
+      }
+
+      benchmark::DoNotOptimize(line);
+
+      // Move past the newline if applicable
+      if (cntr < fileInfo.st_size && cntr < limitBytes) {
+          data++;
+          cntr++;
+      }
+  }
+
+  // delete mapping
+  munmap(data, fileInfo.st_size);  
+  close(fd);
+
+  return wordCount;
+
 }
+
 
 static void BM_ReadWithMMap(benchmark::State& state) {
     const std::string filePath = "../../Downloads/enwiki.txt";
     size_t limit = static_cast<size_t>(state.range(0));
+    size_t count=0;
+
     for (auto _ : state) {
-        readFile(limit, filePath);
+        count=readFileAndCount(limit, filePath);
     }
+    state.counters["Words"]= count;
 }
 
 BENCHMARK(BM_ReadWithMMap)->Arg(3 * GB_IN_BYTES)
