@@ -8,6 +8,10 @@
 
 #define GB_IN_BYTES (1024L * 1024 * 1024)
 
+inline bool file_exists(const std::string& filePath){
+  struct stat buffer;
+  return( stat(filePath.c_str(), &buffer)==0);
+}
 int readFileAndCount(const size_t limitBytes, const std::string& filePath) {
   
   const char* fPath = filePath.c_str();
@@ -87,7 +91,11 @@ int readFileAndCount(const size_t limitBytes, const std::string& filePath) {
 
 
 static void BM_ReadWithMMap(benchmark::State& state) {
-    const std::string filePath = "../../Downloads/enwiki.txt";
+    const std::string filePath = "/Users/simarmalhotra/Downloads/enwiki.txt";
+    if (!file_exists(filePath)) {
+        state.SkipWithError(("File does not exist: " + filePath).c_str());
+        return;
+    }      
     size_t limit = static_cast<size_t>(state.range(0));
     size_t count=0;
 
@@ -96,6 +104,8 @@ static void BM_ReadWithMMap(benchmark::State& state) {
     }
     state.counters["Words"]= count;
 }
+// BENCHMARK(BM_ReadWithMMap)->Arg(1* GB_IN_BYTES)
+                           // ->Unit(benchmark::kSecond) ;
 
 BENCHMARK(BM_ReadWithMMap)->Arg(3 * GB_IN_BYTES)
                            ->Arg(5 * GB_IN_BYTES)

@@ -1,6 +1,6 @@
 {
   "context": {
-    "date": "2025-06-01T02:54:31-04:00",
+    "date": "2025-06-08T14:34:25-04:00",
     "host_name": "Simars-MacBook-Pro.local",
     "executable": "./benchmark_test",
     "num_cpus": 8,
@@ -26,7 +26,7 @@
         "num_sharing": 1
       }
     ],
-    "load_avg": [2.30176,2.2168,2.53223],
+    "load_avg": [1.25488,1.47021,1.84961],
     "library_version": "v1.9.4-4-gce80955d",
     "library_build_type": "release",
     "json_schema_version": 1
@@ -42,9 +42,10 @@
       "repetition_index": 0,
       "threads": 1,
       "iterations": 1,
-      "real_time": 7.4683832909213379e+00,
-      "cpu_time": 3.2223290000000002e+00,
-      "time_unit": "s"
+      "real_time": 1.0515442832838744e+01,
+      "cpu_time": 5.9202919999999990e+00,
+      "time_unit": "s",
+      "Words": 4.9878729300000000e+08
     },
     {
       "name": "BM_ReadWithMMap/5368709120",
@@ -56,9 +57,10 @@
       "repetition_index": 0,
       "threads": 1,
       "iterations": 1,
-      "real_time": 8.1849398330086842e+00,
-      "cpu_time": 5.0294099999999986e+00,
-      "time_unit": "s"
+      "real_time": 1.2970405499916524e+01,
+      "cpu_time": 9.1813380000000002e+00,
+      "time_unit": "s",
+      "Words": 8.3194927300000000e+08
     },
     {
       "name": "BM_ReadWithMMap/10737418240",
@@ -70,9 +72,10 @@
       "repetition_index": 0,
       "threads": 1,
       "iterations": 1,
-      "real_time": 1.8468596208025701e+01,
-      "cpu_time": 1.0315945000000001e+01,
-      "time_unit": "s"
+      "real_time": 3.4456963166827336e+01,
+      "cpu_time": 1.9659522999999997e+01,
+      "time_unit": "s",
+      "Words": 1.6651877140000000e+09
     },
     {
       "name": "BM_ReadWithMMap/21474836480",
@@ -84,9 +87,10 @@
       "repetition_index": 0,
       "threads": 1,
       "iterations": 1,
-      "real_time": 5.3733914542011917e+01,
-      "cpu_time": 2.2216054000000000e+01,
-      "time_unit": "s"
+      "real_time": 7.4112232084153220e+01,
+      "cpu_time": 4.1091895999999998e+01,
+      "time_unit": "s",
+      "Words": 1.8446744072744767e+19
     }
   ]
 }
